@@ -4,13 +4,14 @@
  */
 
 export const business = {
-  name: 'Partyprinzessin',
+  name: 'Kronenmoment',
+  tagline: 'Märchenbesuch zum Kindergeburtstag',
   city: 'Bremen',
   region: 'Bremen, Cloppenburg & Vechta',
   // TODO: echte Nummer im internationalen Format ohne +, z. B. 4915112345678
   whatsapp: '49XXXXXXXXXXX',
   // TODO: echte Adresse
-  email: 'hallo@partyprinzessin.de',
+  email: 'hallo@kronenmoment.de',
   instagram: 'https://www.instagram.com/',
   areaServed: [
     'Bremen', 'Delmenhorst', 'Stuhr', 'Weyhe', 'Achim', 'Lilienthal',

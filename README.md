@@ -1,4 +1,6 @@
-# Partyprinzessin – Website
+# Kronenmoment – Website
+
+*Märchenbesuch zum Kindergeburtstag in Bremen, Cloppenburg & Vechta.*
 
 Astro (statisch) + eine Cloudflare Pages Function für das Anfrageformular.
 
@@ -30,7 +32,7 @@ Lokal in `.dev.vars` (Vorlage: `.dev.vars.example`), produktiv im Cloudflare-Das
 |---|---|---|
 | `RESEND_API_KEY` | ja (prod) | API-Key von resend.com (Free: 3.000 Mails/Monat). Als **Secret** anlegen. |
 | `MAIL_TO` | ja (prod) | Deine Adresse, an die Anfragen gehen. |
-| `MAIL_FROM` | ja (prod) | z. B. `Partyprinzessin <anfrage@partyprinzessin.de>` – Domain muss bei Resend verifiziert sein. |
+| `MAIL_FROM` | ja (prod) | z. B. `Kronenmoment <anfrage@kronenmoment.de>` – Domain muss bei Resend verifiziert sein. |
 | `TURNSTILE_SECRET` | optional | Secret Key von Cloudflare Turnstile. |
 | `PUBLIC_TURNSTILE_SITEKEY` | optional | Site Key – **Build-Variable**, blendet das Widget ein. Nur zusammen mit `TURNSTILE_SECRET` setzen. |
 | `NTFY_TOPIC` | optional | Push aufs Handy über die ntfy-App. Langen, zufälligen Namen wählen (Topics auf ntfy.sh sind öffentlich). Die Push enthält nur Datum, Paket, PLZ und Kinderzahl. |

@@ -4,7 +4,7 @@
  * Umgebungsvariablen (Cloudflare Dashboard → Pages → Settings → Variables, lokal: .dev.vars):
  *   RESEND_API_KEY      API-Key von resend.com. Fehlt er, wird nur geloggt (Entwicklung).
  *   MAIL_TO             Empfängeradresse für Anfragen.
- *   MAIL_FROM           Absender, z. B. "Partyprinzessin <anfrage@partyprinzessin.de>" (Domain bei Resend verifiziert).
+ *   MAIL_FROM           Absender, z. B. "Kronenmoment <anfrage@kronenmoment.de>" (Domain bei Resend verifiziert).
  *   TURNSTILE_SECRET    Optional. Wenn gesetzt, wird das Turnstile-Token geprüft.
  *   NTFY_TOPIC          Optional. Push aufs Handy über ntfy (nur Datum/Paket/PLZ, keine Namen).
  *   NTFY_SERVER         Optional, Standard https://ntfy.sh
@@ -113,7 +113,7 @@ export const onRequestPost = async ({ request, env, waitUntil }: Ctx) => {
       fetch(server, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ topic: env.NTFY_TOPIC, title: 'Partyprinzessin', message: pushText(data), tags: ['crown'] }),
+        body: JSON.stringify({ topic: env.NTFY_TOPIC, title: 'Kronenmoment', message: pushText(data), tags: ['crown'] }),
       }).catch((e) => console.error('[anfrage] ntfy-Fehler', e)),
     );
   }

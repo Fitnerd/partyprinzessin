@@ -23,6 +23,7 @@ const ld = schema
         '@context': 'https://schema.org',
         '@type': 'EntertainmentBusiness',
         name: business.name,
+        slogan: `${business.tagline} in ${business.region}`,
         url: Astro.site?.href,
         email: business.email,
         priceRange: `${Math.min(...prices)}–${Math.max(...prices)} €`,
@@ -60,6 +61,7 @@ const ld = schema
   {noindex && <meta name="robots" content="noindex" />}
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content={business.name} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />

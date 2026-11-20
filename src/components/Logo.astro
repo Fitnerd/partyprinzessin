@@ -1,20 +1,25 @@
 ---
-interface Props { size?: 'md' | 'sm'; }
-const { size = 'md' } = Astro.props;
+import { business } from '../data/site';
+
+interface Props { size?: 'md' | 'sm'; tagline?: boolean; }
+const { size = 'md', tagline = false } = Astro.props;
 ---
-<a href="/" class:list={['logo', size]} aria-label="Partyprinzessin – Startseite">
-  <span class="only-a a">
-    <svg aria-hidden="true" width="34" height="28" viewBox="0 0 34 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
-      <path d="M3 24 L5 7 L12 15 L17 3 L22 15 L29 7 L31 24 Z" fill="var(--highlight)"></path>
-      <circle cx="17" cy="3" r="1.6" fill="var(--accent)" stroke="none"></circle>
-    </svg>
-    Partyprinzessin
+<a href="/" class:list={['logo', size]} aria-label={`${business.name} – Startseite`}>
+  <span class="row">
+    <span class="only-a a">
+      <svg aria-hidden="true" width="34" height="28" viewBox="0 0 34 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+        <path d="M3 24 L5 7 L12 15 L17 3 L22 15 L29 7 L31 24 Z" fill="var(--highlight)"></path>
+        <circle cx="17" cy="3" r="1.6" fill="var(--accent)" stroke="none"></circle>
+      </svg>
+      {business.name}
+    </span>
+    <span class="only-b b">kronen<span class="pink">moment</span><span class="lime">*</span></span>
   </span>
-  <span class="only-b b">party<span class="pink">prinzessin</span><span class="lime">*</span></span>
+  {tagline && <span class="tagline">{business.tagline}</span>}
 </a>
 
 <style>
-  .logo { text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 800; }
+  .logo { display: inline-flex; flex-direction: column; gap: 2px; text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 800; }
   .logo:hover { color: var(--ink); }
   .a { display: inline-flex; align-items: center; gap: 10px; font-size: 26px; letter-spacing: -0.01em; }
   .b { font-size: 28px; letter-spacing: -0.03em; }
@@ -23,4 +28,7 @@ const { size = 'md' } = Astro.props;
   .sm .b { font-size: 23px; }
   .pink { color: var(--highlight); }
   .lime { color: var(--accent); }
+  .tagline { font-family: var(--font-body); font-weight: 500; font-size: 13px; letter-spacing: .01em; color: var(--ink-soft); }
+  :global([data-theme="a"]) .tagline { padding-left: 44px; }
+  @media (max-width: 480px) { .tagline { display: none; } }
 </style>
