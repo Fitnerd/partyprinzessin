@@ -14,7 +14,9 @@ import { pakete, zonen, extraChildPrice } from '../data/site';
         <h3>{p.name}</h3>
         <p class="price">{p.price} €</p>
         <p class="desc">{p.text}</p>
-        {p.featured && <a href={`#anfrage`} data-paket={p.id} class="btn btn-dark book">Dieses Paket anfragen</a>}
+        <a href="#anfrage" data-paket={p.id} class:list={['btn book', p.featured ? 'btn-dark' : 'btn-secondary']}>
+          {p.featured ? 'Dieses Paket anfragen' : `${p.name} anfragen`}
+        </a>
       </article>
     ))}
   </div>
@@ -52,6 +54,8 @@ import { pakete, zonen, extraChildPrice } from '../data/site';
   .desc { margin: 0 0 24px; flex: 1; }
   .book { width: 100%; }
   :global([data-theme="b"]) .featured .book { background: #fff; color: #141118; }
+  .book.btn-secondary { color: var(--card-ink); border-color: var(--card-ink); }
+  .book.btn-secondary:hover { background: var(--card-ink); color: var(--card-bg); }
 
   .zonen-title { font-size: 22px; margin: 40px 0 12px; font-weight: 700; }
   .zonen { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }

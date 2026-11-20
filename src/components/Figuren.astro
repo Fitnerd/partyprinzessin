@@ -8,13 +8,16 @@ import { figuren } from '../data/site';
     <p class="section-lead only-a">Klassische Märchen, neu erzählt – und eigene Heldinnen.</p>
     <ul class="grid">
       {figuren.map((f) => (
-        <li class="fig">
-          <div class="img" role="img" aria-label={`Platzhalter: Foto ${f.name}`}>
-            <span class="only-a">Foto {f.name}</span>
-            <span class="only-b tag">{f.tag}</span>
-          </div>
-          <strong class="name">{f.name}</strong>
-          <span class="line only-a">{f.line}</span>
+        <li>
+          <a class="fig" href="#anfrage" data-figur={f.slug} aria-label={`${f.name} anfragen`}>
+            <span class="img" role="img" aria-label={`Platzhalter: Foto ${f.name}`}>
+              <span class="only-a">Foto {f.name}</span>
+              <span class="only-b tag">{f.tag}</span>
+            </span>
+            <strong class="name">{f.name}</strong>
+            <span class="line only-a">{f.line}</span>
+            <span class="cta" aria-hidden="true">Anfragen →</span>
+          </a>
         </li>
       ))}
     </ul>
@@ -24,22 +27,33 @@ import { figuren } from '../data/site';
 
 <style>
   .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
-  .fig { display: flex; flex-direction: column; gap: 10px; border-radius: 24px; padding: 16px; background: var(--bg); color: var(--ink); }
+  .fig {
+    height: 100%; display: flex; flex-direction: column; gap: 10px;
+    border-radius: 24px; padding: 16px; background: var(--bg); color: var(--ink); text-decoration: none;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .fig:hover { color: var(--ink); transform: translateY(-4px); box-shadow: 6px 6px 0 var(--band-accent); }
+  .fig:focus-visible { outline-color: var(--band-accent); }
   .img { aspect-ratio: 1; border-radius: 18px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; font-size: 13px; font-weight: 500; }
-  .fig:nth-child(3n+1) .img { background: var(--fig-1); color: var(--fig-ink-1); }
-  .fig:nth-child(3n+2) .img { background: var(--fig-2); color: var(--fig-ink-2); }
-  .fig:nth-child(3n+3) .img { background: var(--fig-3); color: var(--fig-ink-3); }
+  li:nth-child(3n+1) .img { background: var(--fig-1); color: var(--fig-ink-1); }
+  li:nth-child(3n+2) .img { background: var(--fig-2); color: var(--fig-ink-2); }
+  li:nth-child(3n+3) .img { background: var(--fig-3); color: var(--fig-ink-3); }
   .name { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
-  .line { font-size: 15px; }
+  .line { font-size: 15px; flex: 1; }
+  .cta { font-weight: 700; font-size: 15px; color: var(--link-hover); }
   .more { margin: 28px 0 0; color: var(--band-accent); }
+  @media (prefers-reduced-motion: reduce) { .fig, .fig:hover { transition: none; transform: none; } }
 
   /* Theme B: ganze Kachel farbig, Name groß unten */
   :global([data-theme="b"]) .fig { padding: 0; background: none; position: relative; min-height: 260px; }
-  :global([data-theme="b"]) .fig .img { aspect-ratio: auto; height: 100%; min-height: 260px; border-radius: 24px; align-items: flex-start; justify-content: flex-start; padding: 20px; }
-  :global([data-theme="b"]) .fig:nth-child(5n+4) .img { background: var(--accent-2); color: #fff; }
-  :global([data-theme="b"]) .fig:nth-child(5n+5) .img { background: var(--card-bg); color: #fff; }
-  :global([data-theme="b"]) .name { position: absolute; left: 20px; right: 20px; bottom: 20px; font-size: 30px; line-height: 1; font-weight: 800; color: #141118; }
-  :global([data-theme="b"]) .fig:nth-child(5n+4) .name,
-  :global([data-theme="b"]) .fig:nth-child(5n+5) .name { color: #fff; }
+  :global([data-theme="b"]) .fig:hover { box-shadow: none; }
+  :global([data-theme="b"]) .fig .img { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 24px; align-items: flex-start; justify-content: flex-start; padding: 20px; }
+  :global([data-theme="b"]) li:nth-child(5n+4) .img { background: var(--accent-2); color: #fff; }
+  :global([data-theme="b"]) li:nth-child(5n+5) .img { background: var(--card-bg); color: #fff; }
+  :global([data-theme="b"]) .name { position: absolute; left: 20px; right: 20px; bottom: 48px; font-size: 24px; line-height: 1.05; font-weight: 800; color: #141118; hyphens: auto; overflow-wrap: anywhere; }
+  :global([data-theme="b"]) .cta { position: absolute; left: 20px; bottom: 18px; color: #141118; font-size: 14px; }
+  :global([data-theme="b"]) li:nth-child(5n+4) :is(.name, .cta),
+  :global([data-theme="b"]) li:nth-child(5n+5) :is(.name, .cta) { color: #fff; }
+  :global([data-theme="b"]) li:nth-child(5n+5) .fig { outline: 1px solid #4A4453; outline-offset: -1px; border-radius: 24px; }
   .tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 </style>

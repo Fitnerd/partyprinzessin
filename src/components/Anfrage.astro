@@ -123,13 +123,17 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefi
   const datum = field('datum') as HTMLInputElement | null;
   if (datum) datum.min = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' }).format(new Date());
 
-  // Paket aus Paket-Karte übernehmen
-  document.querySelectorAll<HTMLAnchorElement>('[data-paket]').forEach((a) => {
-    a.addEventListener('click', () => {
-      const sel = field('paket');
-      if (sel && a.dataset.paket) { sel.value = a.dataset.paket; updateEstimate(); }
+  // Paket- bzw. Figur-Auswahl aus den Karten ins Formular übernehmen
+  const preselect = (attr: 'paket' | 'figur') =>
+    document.querySelectorAll<HTMLAnchorElement>(`[data-${attr}]`).forEach((a) => {
+      a.addEventListener('click', () => {
+        const sel = field(attr);
+        const value = a.dataset[attr];
+        if (sel && value) { sel.value = value; updateEstimate(); }
+      });
     });
-  });
+  preselect('paket');
+  preselect('figur');
 
   // Live-Preisschätzung
   function updateEstimate() {
