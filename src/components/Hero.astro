@@ -76,9 +76,9 @@ import { business, minPrice, whatsappUrl } from '../data/site';
 
   .visual-b { flex: 1 1 380px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .visual-b :global(.tile) { border-radius: var(--radius); min-height: 200px; align-items: flex-end; justify-content: flex-start; text-align: left; }
-  .visual-b :global(.big) { grid-row: span 2; min-height: 420px; background: var(--highlight); color: #141118; }
-  .visual-b :global(.lime) { background: var(--accent); color: #141118; }
-  .violet { background: var(--accent-2); color: #fff; padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; border-radius: var(--radius); }
+  .visual-b :global(.big) { grid-row: span 2; min-height: 420px; background: var(--highlight); color: var(--on-accent); }
+  .visual-b :global(.lime) { background: var(--accent); color: var(--on-accent); }
+  .violet { background: var(--accent-2); color: var(--on-accent-2); padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; border-radius: var(--radius); }
   .price { font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 1; }
 
   @media (max-width: 600px) {

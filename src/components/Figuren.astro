@@ -62,16 +62,16 @@ import { getFoto } from '../lib/fotos';
   :global([data-theme="b"]) .fig { padding: 0; background: none; position: relative; min-height: 260px; }
   :global([data-theme="b"]) .fig:hover { box-shadow: none; }
   :global([data-theme="b"]) .fig .img { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 24px; align-items: flex-start; justify-content: flex-start; padding: 20px; }
-  :global([data-theme="b"]) li:nth-child(5n+4) .img { background: var(--accent-2); color: #fff; }
-  :global([data-theme="b"]) li:nth-child(5n+5) .img { background: var(--card-bg); color: #fff; }
-  :global([data-theme="b"]) .name { position: absolute; left: 20px; right: 20px; bottom: 48px; font-size: 24px; line-height: 1.05; font-weight: 800; color: #141118; hyphens: auto; overflow-wrap: anywhere; }
-  :global([data-theme="b"]) .cta { position: absolute; left: 20px; bottom: 18px; color: #141118; font-size: 14px; }
-  :global([data-theme="b"]) li:nth-child(5n+4) :is(.name, .cta),
-  :global([data-theme="b"]) li:nth-child(5n+5) :is(.name, .cta) { color: #fff; }
-  :global([data-theme="b"]) li:nth-child(5n+5) .fig { outline: 1px solid #4A4453; outline-offset: -1px; border-radius: 24px; }
+  :global([data-theme="b"]) li:nth-child(5n+4) .img { background: var(--accent-2); color: var(--on-accent-2); }
+  :global([data-theme="b"]) li:nth-child(5n+5) .img { background: var(--card-bg); color: var(--card-ink); }
+  :global([data-theme="b"]) .name { position: absolute; left: 20px; right: 20px; bottom: 48px; font-size: 24px; line-height: 1.05; font-weight: 800; color: var(--on-accent); hyphens: auto; overflow-wrap: anywhere; }
+  :global([data-theme="b"]) .cta { position: absolute; left: 20px; bottom: 18px; color: var(--on-accent); font-size: 14px; }
+  :global([data-theme="b"]) li:nth-child(5n+4) :is(.name, .cta) { color: var(--on-accent-2); }
+  :global([data-theme="b"]) li:nth-child(5n+5) :is(.name, .cta) { color: var(--card-ink); }
+  :global([data-theme="b"]) li:nth-child(5n+5) .fig { outline: 1px solid var(--line); outline-offset: -1px; border-radius: 24px; }
   /* B mit Foto: Verlauf unten, Schrift weiß, Tag als Pille */
-  :global([data-theme="b"]) .has-photo .img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,24,.85), rgba(20,17,24,0) 55%); }
-  :global([data-theme="b"]) .has-photo :is(.name, .cta) { color: #fff; z-index: 1; }
-  :global([data-theme="b"]) .has-photo .tag { position: relative; z-index: 1; background: #141118; color: #fff; padding: 4px 10px; border-radius: 999px; }
+  :global([data-theme="b"]) .has-photo .img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(27 31 75 / .85), rgb(27 31 75 / 0) 55%); }
+  :global([data-theme="b"]) .has-photo :is(.name, .cta) { color: var(--ink); z-index: 1; }
+  :global([data-theme="b"]) .has-photo .tag { position: relative; z-index: 1; background: var(--bg); color: var(--ink); padding: 4px 10px; border-radius: 999px; }
   .tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 </style>

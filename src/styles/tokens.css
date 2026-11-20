@@ -61,6 +61,7 @@
 
   --line: #1B1F4B;
   --focus: #1B1F4B;
+  --error: #B3261E;
 
   --fig-1: #A9D6F5; --fig-ink-1: #1B1F4B;
   --fig-2: #FFE7A0; --fig-ink-2: #1B1F4B;
@@ -70,46 +71,47 @@
 :root[data-theme="b"] {
   color-scheme: dark;
 
+  /* Pop-Layout mit Bilderbuch-Palette: Navy als dunkle Bühne, Koralle/Gelb/Hellblau als Akzente */
   --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
   --font-body: "Inter Variable", system-ui, sans-serif;
   --display-weight: 800;
   --display-tracking: -0.04em;
   --display-leading: 0.92;
 
-  --bg: #141118;
-  --ink: #FFFFFF;
-  --ink-soft: #E7E3EE;
+  --bg: #1B1F4B;
+  --ink: #FBF7F0;
+  --ink-soft: #D6D8EE;
 
-  --accent: #C8FF4D;
-  --on-accent: #141118;
-  --accent-2: #6C3BFF;
-  --on-accent-2: #FFFFFF;
+  --accent: #FF6B57;
+  --on-accent: #1B1F4B;
+  --accent-2: #A9D6F5;
+  --on-accent-2: #1B1F4B;
 
-  --highlight: #FF3DA5;
-  --sky: #6C3BFF;
-  --blush: #FF3DA5;
-  --link-hover: #FFFFFF;
+  --highlight: #FFE7A0;
+  --sky: #A9D6F5;
+  --blush: #FFD0C7;
+  --link-hover: #FFE7A0;
 
-  --band-bg: #141118;
-  --band-ink: #FFFFFF;
-  --band-accent: #C8FF4D;
+  --band-bg: #1B1F4B;
+  --band-ink: #FBF7F0;
+  --band-accent: #FF6B57;
 
-  --warm-bg: #FF3DA5;
-  --warm-ink: #141118;
-  --warm-card-bg: #141118;
-  --warm-card-ink: #FFFFFF;
-  --warm-label: #C8FF4D;
+  --warm-bg: #FFE7A0;
+  --warm-ink: #1B1F4B;
+  --warm-card-bg: #1B1F4B;
+  --warm-card-ink: #FBF7F0;
+  --warm-label: #FF6B57;
 
-  --card-bg: #241F2B;
-  --card-ink: #FFFFFF;
+  --card-bg: #2A2F66;
+  --card-ink: #FBF7F0;
   --card-border: 0;
-  --card-featured-bg: #6C3BFF;
-  --card-featured-ink: #FFFFFF;
+  --card-featured-bg: #A9D6F5;
+  --card-featured-ink: #1B1F4B;
   --card-featured-shadow: none;
   --card-featured-rotate: -1.5deg;
 
-  --chip-bg: #241F2B;
-  --chip-ink: #FFFFFF;
+  --chip-bg: #2A2F66;
+  --chip-ink: #FBF7F0;
 
   --btn-border: 2px solid transparent;
   --btn-shadow: none;
@@ -117,10 +119,11 @@
   --radius-sm: 14px;
   --radius-btn: 14px;
 
-  --line: #4A4453;
-  --focus: #C8FF4D;
+  --line: #474D8C;
+  --focus: #FFE7A0;
+  --error: #FFB3A7;
 
-  --fig-1: #FFFFFF; --fig-ink-1: #141118;
-  --fig-2: #FF3DA5; --fig-ink-2: #141118;
-  --fig-3: #C8FF4D; --fig-ink-3: #141118;
+  --fig-1: #FBF7F0; --fig-ink-1: #1B1F4B;
+  --fig-2: #FFE7A0; --fig-ink-2: #1B1F4B;
+  --fig-3: #FF6B57; --fig-ink-3: #1B1F4B;
 }

@@ -228,18 +228,17 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefi
     font: inherit; font-weight: 400; color: var(--card-ink); background: transparent;
     min-height: 48px; padding: 10px 14px; border-radius: 12px; border: 2px solid var(--line);
   }
-  :global([data-theme="b"]) input, :global([data-theme="b"]) select, :global([data-theme="b"]) textarea { background: #141118; border-color: #4A4453; color-scheme: dark; }
-  :global([data-theme="b"]) option { background: #141118; color: #fff; }
+  :global([data-theme="b"]) input, :global([data-theme="b"]) select, :global([data-theme="b"]) textarea { background: var(--bg); border-color: var(--line); color-scheme: dark; }
+  :global([data-theme="b"]) option { background: var(--bg); color: var(--ink); }
   input:focus, select:focus, textarea:focus { outline: 3px solid var(--focus); outline-offset: 1px; }
   [aria-invalid="true"] { border-color: #C2412F; }
-  :global([data-theme="b"]) [aria-invalid="true"] { border-color: #FF3DA5; }
-  .err { font-weight: 600; font-size: 14px; color: #B3261E; min-height: 0; }
-  :global([data-theme="b"]) .err { color: #FF8AC6; }
+  :global([data-theme="b"]) [aria-invalid="true"] { border-color: var(--error); }
+  .err { font-weight: 600; font-size: 14px; color: var(--error); min-height: 0; }
   .err:empty { display: none; }
   .check { flex-direction: row; align-items: center; gap: 10px; font-weight: 400; }
   .check input { min-height: 0; width: 22px; height: 22px; accent-color: var(--accent); }
   .estimate { display: block; padding: 14px 16px; border-radius: 14px; background: var(--highlight); color: var(--on-accent); font-size: 15px; }
-  :global([data-theme="b"]) .estimate { background: var(--accent-2); color: #fff; }
+  :global([data-theme="b"]) .estimate { background: var(--accent-2); color: var(--on-accent-2); }
   .estimate:empty { display: none; }
   .estimate :global(strong) { font-size: 18px; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
