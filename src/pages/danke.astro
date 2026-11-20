@@ -1,0 +1,21 @@
+---
+/** Ziel nach dem Absenden ohne JavaScript. */
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import { business, whatsappUrl } from '../data/site';
+---
+<Base title="Danke für deine Anfrage | Partyprinzessin" description="Deine Anfrage ist angekommen." noindex>
+  <main id="main" class="container thanks">
+    <Logo size="sm" />
+    <h1>Danke! Deine Anfrage ist da.</h1>
+    <p>Ich melde mich innerhalb von {business.responseTime} mit Zusage und Endpreis.</p>
+    <p>Eilig? <a href={whatsappUrl()} rel="noopener">Schreib mir per WhatsApp</a>.</p>
+    <p><a href="/">← Zur Startseite</a></p>
+  </main>
+</Base>
+
+<style>
+  .thanks { max-width: 760px; padding-block: 48px 96px; }
+  h1 { font-size: clamp(36px, 5vw, 52px); margin: 32px 0 16px; }
+  a { font-weight: 700; }
+</style>

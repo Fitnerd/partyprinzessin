@@ -1,0 +1,26 @@
+---
+interface Props { size?: 'md' | 'sm'; }
+const { size = 'md' } = Astro.props;
+---
+<a href="/" class:list={['logo', size]} aria-label="Partyprinzessin – Startseite">
+  <span class="only-a a">
+    <svg aria-hidden="true" width="34" height="28" viewBox="0 0 34 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+      <path d="M3 24 L5 7 L12 15 L17 3 L22 15 L29 7 L31 24 Z" fill="var(--highlight)"></path>
+      <circle cx="17" cy="3" r="1.6" fill="var(--accent)" stroke="none"></circle>
+    </svg>
+    Partyprinzessin
+  </span>
+  <span class="only-b b">party<span class="pink">prinzessin</span><span class="lime">*</span></span>
+</a>
+
+<style>
+  .logo { text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 800; }
+  .logo:hover { color: var(--ink); }
+  .a { display: inline-flex; align-items: center; gap: 10px; font-size: 26px; letter-spacing: -0.01em; }
+  .b { font-size: 28px; letter-spacing: -0.03em; }
+  .sm .a { font-size: 21px; }
+  .sm .a svg { width: 28px; height: 23px; }
+  .sm .b { font-size: 23px; }
+  .pink { color: var(--highlight); }
+  .lime { color: var(--accent); }
+</style>

@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Figuren from '../components/Figuren.astro';
+import Schritte from '../components/Schritte.astro';
+import Pakete from '../components/Pakete.astro';
+import Ablauf from '../components/Ablauf.astro';
+import About from '../components/About.astro';
+import Bewertungen from '../components/Bewertungen.astro';
+import Faq from '../components/Faq.astro';
+import Anfrage from '../components/Anfrage.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import { minPrice } from '../data/site';
+---
+<Base
+  title="Prinzessin für den Kindergeburtstag in Bremen, Cloppenburg & Vechta | Partyprinzessin"
+  description={`Eine Märchenprinzessin besucht euren Kindergeburtstag zu Hause: Tanz, Spiele, Fotos und Krönung. Festpreise ab ${minPrice} €, in Bremen, Cloppenburg und Vechta.`}
+  schema
+>
+  <Header />
+  <main id="main">
+    <Hero />
+    <Figuren />
+    <Schritte />
+    <Pakete />
+    <Ablauf />
+    <About />
+    <Bewertungen />
+    <Faq />
+    <Anfrage />
+  </main>
+  <Footer />
+  <MobileBar />
+</Base>

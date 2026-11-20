@@ -1,0 +1,9 @@
+---
+/** Rendert einen Text, der sich je Theme unterscheidet. "|" = Zeilenumbruch. */
+import { copy } from '../data/site';
+
+interface Props { k: keyof typeof copy.a; }
+const { k } = Astro.props;
+const lines = (s: string) => s.split('|');
+---
+<span class="only-a">{lines(copy.a[k]).map((l, i) => <>{i > 0 && <br />}{l}</>)}</span><span class="only-b">{lines(copy.b[k]).map((l, i) => <>{i > 0 && <br />}{i > 0 && k === 'heroTitle' ? <span class="hl">{l}</span> : l}</>)}</span>

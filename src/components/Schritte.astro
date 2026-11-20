@@ -1,0 +1,30 @@
+---
+import { schritte } from '../data/site';
+---
+<section class="container section steps-wrap">
+  <h2 class="section-title">So einfach geht’s</h2>
+  <ol class="steps">
+    {schritte.map((s, i) => (
+      <li>
+        <span class="num" aria-hidden="true">{i + 1}</span>
+        <div><strong>{s.t}</strong><p>{s.d}</p></div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .steps-wrap { padding-bottom: 32px; }
+  .section-title { margin-bottom: 36px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  li { display: flex; gap: 16px; align-items: flex-start; }
+  .num {
+    flex: none; width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--highlight); color: var(--on-accent); border: var(--card-border);
+    font-family: var(--font-display); font-weight: 800; font-size: 22px;
+  }
+  :global([data-theme="b"]) .num { background: var(--accent); color: var(--on-accent); border-radius: 14px; }
+  strong { font-size: 19px; }
+  p { margin: 4px 0 0; color: var(--ink-soft); }
+</style>

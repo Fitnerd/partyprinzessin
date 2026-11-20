@@ -1,0 +1,25 @@
+---
+import T from './T.astro';
+import { ablauf } from '../data/site';
+---
+<section class="warm section">
+  <div class="container">
+    <h2 class="section-title"><T k="ablaufTitle" /></h2>
+    <ol class="list">
+      {ablauf.map((s) => (
+        <li>
+          <span class="time">{s.t}</span>
+          <span class="what"><span class="only-a">{s.a}</span><span class="only-b">{s.b}</span></span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-bottom: 36px; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+  li { background: var(--warm-card-bg); color: var(--warm-card-ink); border: var(--card-border); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .time { font-weight: 700; color: var(--warm-label); }
+  .what { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.2; }
+</style>

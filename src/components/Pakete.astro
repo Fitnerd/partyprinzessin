@@ -1,0 +1,59 @@
+---
+import T from './T.astro';
+import { pakete, zonen, extraChildPrice } from '../data/site';
+---
+<section id="pakete" class="container section">
+  <h2 class="section-title"><T k="paketeTitle" /></h2>
+  <p class="section-lead">Festpreis inklusive Programm, Krone und Urkunde. Jedes weitere Kind {extraChildPrice} €.</p>
+
+  <div class="cards">
+    {pakete.map((p) => (
+      <article class:list={['card', { featured: p.featured }]}>
+        {p.featured && <span class="badge">Am häufigsten gebucht</span>}
+        <p class="meta">{p.minutes} Min. · bis {p.kids} Kinder</p>
+        <h3>{p.name}</h3>
+        <p class="price">{p.price} €</p>
+        <p class="desc">{p.text}</p>
+        {p.featured && <a href={`#anfrage`} data-paket={p.id} class="btn btn-dark book">Dieses Paket anfragen</a>}
+      </article>
+    ))}
+  </div>
+
+  <h3 class="zonen-title">Anfahrt</h3>
+  <ul class="zonen">
+    {zonen.map((z) => (
+      <li class="chip">{z.name}: {z.price === 0 ? (z.note ?? 'inklusive') : `+${z.price} €`}</li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .cards { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; }
+  .card {
+    flex: 1 1 300px; position: relative; padding: 32px; border-radius: var(--radius);
+    background: var(--card-bg); color: var(--card-ink); border: var(--card-border);
+    display: flex; flex-direction: column;
+  }
+  .featured {
+    background: var(--card-featured-bg); color: var(--card-featured-ink);
+    box-shadow: var(--card-featured-shadow); transform: rotate(var(--card-featured-rotate));
+  }
+  :global([data-theme="a"]) .featured { border-width: 3px; }
+  .badge {
+    position: absolute; top: -16px; left: 28px; padding: 4px 14px; border-radius: 999px;
+    background: var(--accent); color: var(--on-accent); border: var(--card-border); font-weight: 700; font-size: 14px;
+  }
+  :global([data-theme="b"]) .badge { position: static; align-self: flex-start; border-radius: 8px; margin-bottom: 12px; }
+  .meta { margin: 0; font-weight: 700; opacity: .85; }
+  :global([data-theme="b"]) .card:not(.featured) .meta { color: var(--accent); opacity: 1; text-transform: uppercase; }
+  h3 { font-size: 30px; margin: 6px 0 4px; font-weight: 700; }
+  .price { margin: 0 0 20px; font-family: var(--font-display); font-weight: 800; font-size: 52px; line-height: 1; }
+  :global([data-theme="b"]) .price { font-size: 64px; }
+  .desc { margin: 0 0 24px; flex: 1; }
+  .book { width: 100%; }
+  :global([data-theme="b"]) .featured .book { background: #fff; color: #141118; }
+
+  .zonen-title { font-size: 22px; margin: 40px 0 12px; font-weight: 700; }
+  .zonen { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .zonen .chip { font-weight: 500; font-size: 15px; padding: 8px 16px; }
+</style>

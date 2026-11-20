@@ -1,0 +1,126 @@
+/*
+  Design-Tokens. Zwei Themes zum Vergleich:
+  A = Modernes Bilderbuch, B = Pop-Party.
+  Komponenten nutzen nur diese Variablen, nie Hex-Werte direkt.
+*/
+
+:root,
+:root[data-theme="a"] {
+  color-scheme: light;
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-body: "DM Sans Variable", system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.02em;
+  --display-leading: 1.02;
+
+  --bg: #FBF7F0;
+  --ink: #1B1F4B;
+  --ink-soft: #4A4F80;
+
+  /* Primärer Button */
+  --accent: #FF6B57;
+  --on-accent: #1B1F4B;
+  /* Sekundär (dunkler Button) */
+  --accent-2: #1B1F4B;
+  --on-accent-2: #FBF7F0;
+
+  --highlight: #FFE7A0;
+  --sky: #A9D6F5;
+  --blush: #FFD0C7;
+  --link-hover: #C2412F;
+
+  /* Dunkles Band (Figuren, Bewertungen) */
+  --band-bg: #1B1F4B;
+  --band-ink: #FBF7F0;
+  --band-accent: #FFE7A0;
+
+  /* Warmes Band (Ablauf) */
+  --warm-bg: #FFE7A0;
+  --warm-ink: #1B1F4B;
+  --warm-card-bg: #FBF7F0;
+  --warm-card-ink: #1B1F4B;
+  --warm-label: #C2412F;
+
+  --card-bg: #FBF7F0;
+  --card-ink: #1B1F4B;
+  --card-border: 2px solid #1B1F4B;
+  --card-featured-bg: #FFE7A0;
+  --card-featured-ink: #1B1F4B;
+  --card-featured-shadow: 8px 8px 0 #1B1F4B;
+  --card-featured-rotate: 0deg;
+
+  --chip-bg: #A9D6F5;
+  --chip-ink: #1B1F4B;
+
+  --btn-border: 2px solid #1B1F4B;
+  --btn-shadow: 4px 4px 0 #1B1F4B;
+  --radius: 28px;
+  --radius-sm: 16px;
+  --radius-btn: 999px;
+
+  --line: #1B1F4B;
+  --focus: #1B1F4B;
+
+  --fig-1: #A9D6F5; --fig-ink-1: #1B1F4B;
+  --fig-2: #FFE7A0; --fig-ink-2: #1B1F4B;
+  --fig-3: #FFD0C7; --fig-ink-3: #1B1F4B;
+}
+
+:root[data-theme="b"] {
+  color-scheme: dark;
+
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.04em;
+  --display-leading: 0.92;
+
+  --bg: #141118;
+  --ink: #FFFFFF;
+  --ink-soft: #E7E3EE;
+
+  --accent: #C8FF4D;
+  --on-accent: #141118;
+  --accent-2: #6C3BFF;
+  --on-accent-2: #FFFFFF;
+
+  --highlight: #FF3DA5;
+  --sky: #6C3BFF;
+  --blush: #FF3DA5;
+  --link-hover: #FFFFFF;
+
+  --band-bg: #141118;
+  --band-ink: #FFFFFF;
+  --band-accent: #C8FF4D;
+
+  --warm-bg: #FF3DA5;
+  --warm-ink: #141118;
+  --warm-card-bg: #141118;
+  --warm-card-ink: #FFFFFF;
+  --warm-label: #C8FF4D;
+
+  --card-bg: #241F2B;
+  --card-ink: #FFFFFF;
+  --card-border: 0;
+  --card-featured-bg: #6C3BFF;
+  --card-featured-ink: #FFFFFF;
+  --card-featured-shadow: none;
+  --card-featured-rotate: -1.5deg;
+
+  --chip-bg: #241F2B;
+  --chip-ink: #FFFFFF;
+
+  --btn-border: 2px solid transparent;
+  --btn-shadow: none;
+  --radius: 28px;
+  --radius-sm: 14px;
+  --radius-btn: 14px;
+
+  --line: #4A4453;
+  --focus: #C8FF4D;
+
+  --fig-1: #FFFFFF; --fig-ink-1: #141118;
+  --fig-2: #FF3DA5; --fig-ink-2: #141118;
+  --fig-3: #C8FF4D; --fig-ink-3: #141118;
+}

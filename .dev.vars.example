@@ -1,0 +1,6 @@
+# Kopieren nach .dev.vars (wird nicht committet). Leer lassen = Dev-Modus, Mails werden nur geloggt.
+RESEND_API_KEY=
+MAIL_TO=
+MAIL_FROM=
+TURNSTILE_SECRET=
+NTFY_TOPIC=

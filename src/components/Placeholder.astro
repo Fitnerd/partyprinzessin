@@ -1,0 +1,15 @@
+---
+/** Bild-Platzhalter, bis echte Fotos da sind. */
+interface Props { label: string; class?: string; }
+const { label, class: cls = '' } = Astro.props;
+---
+<div class:list={['ph', cls]} role="img" aria-label={`Platzhalter: ${label}`}>
+  <span>{label}</span>
+</div>
+
+<style>
+  .ph {
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 20px; font-weight: 700; font-size: 15px; line-height: 1.4;
+  }
+</style>

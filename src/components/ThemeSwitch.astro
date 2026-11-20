@@ -1,0 +1,42 @@
+---
+/** Nur für den A/B-Vergleich. Wird über showThemeSwitch in site.ts gesteuert. */
+---
+<div class="switch" role="group" aria-label="Design-Richtung wählen">
+  <button type="button" data-set-theme="a">A · Bilderbuch</button>
+  <button type="button" data-set-theme="b">B · Pop</button>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-set-theme]');
+  const sync = () => {
+    const current = document.documentElement.dataset.theme;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setTheme === current)));
+  };
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const t = b.dataset.setTheme!;
+      document.documentElement.dataset.theme = t;
+      try { localStorage.setItem('pp-theme', t); } catch {}
+      const url = new URL(location.href);
+      url.searchParams.set('theme', t);
+      history.replaceState(null, '', url);
+      sync();
+    }),
+  );
+  sync();
+</script>
+
+<style>
+  .switch {
+    position: fixed; left: 16px; bottom: 16px; z-index: 40;
+    display: flex; gap: 4px; padding: 4px; border-radius: 999px;
+    background: #111; box-shadow: 0 8px 24px rgb(0 0 0 / .3);
+    font: 600 13px/1 system-ui, sans-serif;
+  }
+  @media (max-width: 767px) { .switch { bottom: 96px; } }
+  button {
+    border: 0; border-radius: 999px; padding: 10px 14px; min-height: 36px; cursor: pointer;
+    background: transparent; color: #ddd; font: inherit;
+  }
+  button[aria-pressed="true"] { background: #fff; color: #111; }
+</style>

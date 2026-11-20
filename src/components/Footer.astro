@@ -1,0 +1,47 @@
+---
+import T from './T.astro';
+import { business, whatsappUrl } from '../data/site';
+const year = new Date().getFullYear();
+---
+<section class="container final">
+  <div class="box">
+    <h2><T k="finalTitle" /></h2>
+    <p>Datum eingeben, Paket wählen, fertig – Antwort innerhalb von {business.responseTime}.</p>
+    <div class="ctas">
+      <a href="#anfrage" class="btn btn-lg cta">Freien Termin prüfen</a>
+      <a href={whatsappUrl()} class="btn btn-lg ghost" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="container footer">
+  <span>© {year} {business.name} · {business.city}</span>
+  <nav aria-label="Rechtliches">
+    <a href={business.instagram} rel="noopener">Instagram</a>
+    <a href="/impressum">Impressum</a>
+    <a href="/datenschutz">Datenschutz</a>
+  </nav>
+</footer>
+
+<style>
+  .final { margin-bottom: 64px; }
+  .box {
+    text-align: center; padding: 56px 32px; border-radius: 40px;
+    background: var(--accent); color: var(--on-accent); border: 3px solid var(--ink);
+  }
+  :global([data-theme="b"]) .box { background: var(--accent-2); color: #fff; border: 0; }
+  h2 { font-size: clamp(36px, 5.5vw, 72px); line-height: 1; margin-bottom: 12px; }
+  p { margin: 0 0 28px; font-size: 19px; }
+  .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .cta { background: var(--accent-2); color: var(--on-accent-2); }
+  .cta:hover { color: var(--on-accent-2); }
+  :global([data-theme="b"]) .cta { background: var(--accent); color: var(--on-accent); }
+  .ghost { border: 2px solid currentColor; color: inherit; }
+  .ghost:hover { color: inherit; }
+
+  .footer {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;
+    padding-block: 32px; border-top: 2px solid var(--line); font-size: 15px;
+  }
+  nav { display: flex; flex-wrap: wrap; gap: 20px; }
+</style>

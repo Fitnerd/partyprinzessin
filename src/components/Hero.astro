@@ -1,0 +1,98 @@
+---
+import T from './T.astro';
+import Placeholder from './Placeholder.astro';
+import { business, minPrice, whatsappUrl } from '../data/site';
+---
+<section class="container hero">
+  <div class="text">
+    <p class="chip only-a">Bremen · Cloppenburg · Vechta</p>
+    <h1><T k="heroTitle" /></h1>
+    <p class="lead"><T k="heroLead" /></p>
+    <div class="ctas">
+      <a href="#anfrage" class="btn btn-primary btn-lg only-a">Freien Termin prüfen</a>
+      <a href="#anfrage" class="btn btn-dark btn-lg only-b">Freien Termin checken</a>
+      <a href={whatsappUrl()} class="btn btn-secondary btn-lg" rel="noopener">WhatsApp schreiben</a>
+    </div>
+    <ul class="trust only-a">
+      <li>ab <strong>{minPrice} €</strong></li>
+      <li>bis 12 Kinder</li>
+      <li>Antwort in {business.responseTime}</li>
+    </ul>
+  </div>
+
+  <!-- Theme A: Bilderbuch-Sticker -->
+  <div class="visual-a only-a" aria-hidden="false">
+    <div class="blob" aria-hidden="true"></div>
+    <Placeholder class="arch" label="Foto: du als Schneekönigin, freigestellt, Tageslicht" />
+    <span class="sticker s1" aria-hidden="true">Krone inklusive</span>
+    <span class="sticker s2" aria-hidden="true">ab {minPrice} € · 60 Min.</span>
+    <svg class="star" aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="var(--highlight)" stroke="var(--ink)" stroke-width="1.5"><path d="M12 2l2.6 6.6L21 9.5l-5 4.6 1.4 6.9L12 17.6 6.6 21l1.4-6.9-5-4.6 6.4-.9z"></path></svg>
+  </div>
+
+  <!-- Theme B: Bento -->
+  <div class="visual-b only-b">
+    <Placeholder class="tile big" label="Foto: du, harter Blitz, pinker Hintergrund" />
+    <Placeholder class="tile lime" label="Reel-Still: Tanz" />
+    <div class="tile violet">
+      <span class="price">{minPrice} €</span>
+      <span>ab · 60 Min.</span>
+    </div>
+  </div>
+</section>
+
+<section class="marquee only-b" aria-hidden="true">
+  <div class="track">
+    <span>Tanzen ✶ Krönung ✶ Glitzer ✶ Fotos ✶ Spiele ✶ Ihr bereitet nichts vor ✶&nbsp;</span>
+    <span>Tanzen ✶ Krönung ✶ Glitzer ✶ Fotos ✶ Spiele ✶ Ihr bereitet nichts vor ✶&nbsp;</span>
+  </div>
+</section>
+
+<style>
+  .hero { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding-block: 32px 72px; }
+  .text { flex: 1 1 480px; min-width: 0; }
+  .chip { margin: 0 0 16px; background: var(--sky); }
+  h1 { font-size: clamp(40px, 6vw, 72px); line-height: var(--display-leading); margin-bottom: 20px; }
+  :global([data-theme="b"]) h1 { font-size: clamp(52px, 8.5vw, 104px); }
+  h1 :global(.hl) { color: var(--highlight); }
+  .lead { margin: 0 0 28px; font-size: 20px; max-width: 36ch; color: var(--ink-soft); }
+  :global([data-theme="a"]) .lead { color: var(--ink); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+  .trust { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 24px; font-size: 15px; font-weight: 500; }
+  .trust strong { font-size: 20px; }
+
+  .visual-a { flex: 1 1 420px; min-width: 0; position: relative; min-height: 520px; }
+  .blob { position: absolute; inset: 30px 10px 0 40px; background: var(--highlight); border-radius: 48% 52% 44% 56% / 55% 45% 55% 45%; }
+  .visual-a :global(.arch) {
+    position: absolute; inset: 0 40px 40px 10px; background: var(--sky);
+    border: 3px solid var(--ink); border-radius: 220px 220px 32px 32px;
+  }
+  .sticker {
+    position: absolute; border: 2px solid var(--ink); border-radius: var(--radius-sm);
+    padding: 10px 16px; font-weight: 700;
+  }
+  .s1 { top: 40px; right: 0; background: var(--bg); font-family: var(--font-display); transform: rotate(6deg); }
+  .s2 { bottom: 10px; left: 0; background: var(--accent); transform: rotate(-5deg); }
+  .star { position: absolute; top: 120px; left: -10px; }
+
+  .visual-b { flex: 1 1 380px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .visual-b :global(.tile) { border-radius: var(--radius); min-height: 200px; align-items: flex-end; justify-content: flex-start; text-align: left; }
+  .visual-b :global(.big) { grid-row: span 2; min-height: 420px; background: var(--highlight); color: #141118; }
+  .visual-b :global(.lime) { background: var(--accent); color: #141118; }
+  .violet { background: var(--accent-2); color: #fff; padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; border-radius: var(--radius); }
+  .price { font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 1; }
+
+  @media (max-width: 600px) {
+    .visual-a { min-height: 380px; }
+    .visual-b :global(.big) { min-height: 320px; }
+    .visual-b :global(.tile), .violet { min-height: 150px; }
+  }
+
+  .marquee { background: var(--accent); color: var(--on-accent); overflow: hidden; padding-block: 16px; }
+  .track {
+    display: flex; width: max-content; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.02em;
+    animation: scroll 28s linear infinite;
+  }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+</style>

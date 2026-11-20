@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+---
+<Base title="Datenschutz | Partyprinzessin" description="Datenschutzerklärung von Partyprinzessin" noindex>
+  <main id="main" class="container legal">
+    <Logo size="sm" />
+    <h1>Datenschutzerklärung</h1>
+    <p><strong>TODO vor dem Launch:</strong> Datenschutzerklärung einfügen (Hosting bei Cloudflare, Kontaktformular mit Mailversand über Resend, ggf. Cloudflare Turnstile und ntfy-Push, WhatsApp-Link). Schriften sind selbst gehostet, es werden keine Google-Fonts-Server kontaktiert.</p>
+    <p><a href="/">← Zur Startseite</a></p>
+  </main>
+</Base>
+
+<style>
+  .legal { max-width: 760px; padding-block: 48px 96px; }
+  h1 { font-size: 44px; margin: 32px 0 16px; }
+</style>

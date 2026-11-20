@@ -1,0 +1,28 @@
+---
+import { bewertungen } from '../data/site';
+---
+{bewertungen.length > 0 && (
+  <section class="band section">
+    <div class="container">
+      <h2 class="section-title">Das sagen Eltern</h2>
+      <ul class="grid">
+        {bewertungen.map((r) => (
+          <li>
+            <blockquote>
+              <p>„{r.text}“</p>
+              <footer>– {r.name}, Google-Bewertung</footer>
+            </blockquote>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .section-title { margin-bottom: 32px; }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  blockquote { margin: 0; padding: 24px; border-radius: 24px; background: var(--card-bg); color: var(--card-ink); border: var(--card-border); height: 100%; }
+  p { margin: 0 0 12px; }
+  footer { font-weight: 700; font-size: 15px; }
+</style>

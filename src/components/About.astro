@@ -1,0 +1,28 @@
+---
+import T from './T.astro';
+import Placeholder from './Placeholder.astro';
+import { business } from '../data/site';
+---
+<section id="ueber-mich" class="container section about">
+  <Placeholder class="media" label="Hochformat-Video, 30 Sek.: „Hi, ich bin …“ – Verwandlung ohne → mit Kostüm" />
+  <div class="text">
+    <h2 class="section-title"><T k="aboutTitle" /></h2>
+    <p>[Dein Name], aus {business.city}. [Deine Erfahrung mit Kindern in einem Satz.] Ich spiele jede Figur selbst – ihr wisst also genau, wer zu euch kommt.</p>
+    <p>[Zweiter Satz: was dich antreibt, ohne Kitsch.]</p>
+    <a href={business.instagram} rel="noopener">Mehr auf Instagram →</a>
+  </div>
+</section>
+
+<style>
+  .about { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+  .about :global(.media) {
+    flex: 1 1 340px; min-width: 0; max-width: 440px; aspect-ratio: 4 / 5;
+    background: var(--sky); color: var(--ink); border: 3px solid var(--ink); border-radius: 32px;
+  }
+  :global([data-theme="b"]) .about :global(.media) { aspect-ratio: 9 / 16; max-width: 400px; border: 0; color: #fff; }
+  .text { flex: 1 1 420px; min-width: 0; }
+  .section-title { margin-bottom: 16px; }
+  p { margin: 0 0 16px; }
+  a { font-weight: 700; }
+  :global([data-theme="b"]) a { color: var(--accent); }
+</style>

@@ -1,0 +1,250 @@
+---
+import { pakete, figuren, business, whatsappUrl } from '../data/site';
+import { todayBerlin } from '../lib/anfrage';
+
+const today = todayBerlin();
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY as string | undefined;
+---
+<section id="anfrage" class="section">
+  <div class="container wrap">
+    <div class="intro">
+      <h2 class="section-title">Termin anfragen</h2>
+      <p class="section-lead">Datum und Ort angeben – du bekommst innerhalb von {business.responseTime} eine Zusage mit Endpreis. Erst nach der Anzahlung ist der Termin fest.</p>
+      <p>Lieber schnell per Chat? <a href={whatsappUrl()} rel="noopener">WhatsApp schreiben</a></p>
+    </div>
+
+    <div class="card">
+      <form class="form" id="anfrage-form" action="/api/anfrage" method="post" novalidate>
+        <div class="row">
+          <label>Wunschdatum
+            <input type="date" name="datum" min={today} required />
+            <span class="err" data-err="datum"></span>
+          </label>
+          <label>Uhrzeit (ca.)
+            <input type="time" name="uhrzeit" step="900" />
+            <span class="err" data-err="uhrzeit"></span>
+          </label>
+        </div>
+        <div class="row">
+          <label>PLZ der Party
+            <input type="text" name="plz" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" required />
+            <span class="err" data-err="plz"></span>
+          </label>
+          <label>Anzahl Kinder
+            <input type="number" name="kinder" min="1" max="30" value="8" required />
+            <span class="err" data-err="kinder"></span>
+          </label>
+        </div>
+        <div class="row">
+          <label>Paket
+            <select name="paket" required>
+              {pakete.map((p) => <option value={p.id} selected={p.featured}>{p.name} – {p.price} €</option>)}
+              <option value="event">Event / Walk-Act</option>
+            </select>
+            <span class="err" data-err="paket"></span>
+          </label>
+          <label>Figur
+            <select name="figur" required>
+              {figuren.map((f) => <option value={f.slug}>{f.name}</option>)}
+              <option value="andere">Andere Wunschfigur</option>
+            </select>
+            <span class="err" data-err="figur"></span>
+          </label>
+        </div>
+
+        <output class="estimate" id="estimate" for="anfrage-form" aria-live="polite"></output>
+
+        <div class="row">
+          <label>Name &amp; Alter des Geburtstagskindes
+            <input type="text" name="kind" maxlength="100" placeholder="z. B. Mila, 5" />
+          </label>
+          <label>Dein Name
+            <input type="text" name="name" maxlength="100" autocomplete="name" required />
+            <span class="err" data-err="name"></span>
+          </label>
+        </div>
+        <div class="row">
+          <label>E-Mail
+            <input type="email" name="email" maxlength="200" autocomplete="email" required />
+            <span class="err" data-err="email"></span>
+          </label>
+          <label>Telefon / WhatsApp
+            <input type="tel" name="telefon" maxlength="40" autocomplete="tel" />
+            <span class="err" data-err="telefon"></span>
+          </label>
+        </div>
+        <label>Nachricht (optional)
+          <textarea name="nachricht" rows="3" maxlength="2000"></textarea>
+        </label>
+
+        <!-- Honeypot gegen Spam-Bots: für Menschen unsichtbar -->
+        <div class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        {turnstileKey && (
+          <>
+            <div class="cf-turnstile" data-sitekey={turnstileKey} data-language="de"></div>
+            <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+          </>
+        )}
+
+        <label class="check">
+          <input type="checkbox" name="datenschutz" required />
+          <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen.</span>
+        </label>
+        <span class="err" data-err="datenschutz"></span>
+
+        <button type="submit" class="btn btn-primary btn-lg">Unverbindlich anfragen</button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="done" id="anfrage-done" hidden tabindex="-1">
+        <h3>Danke! Deine Anfrage ist da.</h3>
+        <p>Ich melde mich innerhalb von {business.responseTime} mit Zusage und Endpreis.</p>
+        <p>Eilig? <a href={whatsappUrl()} rel="noopener">Schreib mir per WhatsApp</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { estimate } from '../lib/pricing';
+  import { whatsappUrl } from '../data/site';
+
+  const form = document.getElementById('anfrage-form') as HTMLFormElement;
+  const done = document.getElementById('anfrage-done') as HTMLElement;
+  const status = form.querySelector('.status') as HTMLElement;
+  const out = document.getElementById('estimate') as HTMLOutputElement;
+  const submit = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const field = (n: string) => form.elements.namedItem(n) as HTMLInputElement | HTMLSelectElement | null;
+
+  // Das min-Datum aus dem Build veraltet – beim Laden auf heute setzen.
+  const datum = field('datum') as HTMLInputElement | null;
+  if (datum) datum.min = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' }).format(new Date());
+
+  // Paket aus Paket-Karte übernehmen
+  document.querySelectorAll<HTMLAnchorElement>('[data-paket]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const sel = field('paket');
+      if (sel && a.dataset.paket) { sel.value = a.dataset.paket; updateEstimate(); }
+    });
+  });
+
+  // Live-Preisschätzung
+  function updateEstimate() {
+    const paket = field('paket')?.value ?? '';
+    const kinder = Number(field('kinder')?.value || 0);
+    const plz = field('plz')?.value ?? '';
+    if (paket === 'event') { out.textContent = 'Preis für Events nach Absprache.'; return; }
+    const e = estimate(paket, kinder, plz);
+    if (!e) { out.textContent = ''; return; }
+    const parts = [`${e.paket.name} ${e.paket.price} €`];
+    if (e.extraKids > 0) parts.push(`${e.extraKids} weitere Kinder ${e.extraKidsCost} €`);
+    if (/^\d{5}$/.test(plz)) parts.push(e.travel === null ? 'Anfahrt nach Absprache' : e.travel === 0 ? 'Anfahrt inklusive' : `Anfahrt ${e.travel} €`);
+    const sum = e.travel === null && /^\d{5}$/.test(plz) ? `ca. ${e.total} € + Anfahrt` : `${e.total} €`;
+    out.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = `Voraussichtlich ${sum}`;
+    out.append(strong, document.createElement('br'), parts.join(' · '));
+  }
+  form.addEventListener('input', updateEstimate);
+  updateEstimate();
+
+  function showErrors(errors: Record<string, string>) {
+    form.querySelectorAll<HTMLElement>('.err').forEach((el) => (el.textContent = ''));
+    form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+    let first: HTMLElement | null = null;
+    for (const [name, msg] of Object.entries(errors)) {
+      const err = form.querySelector<HTMLElement>(`[data-err="${name}"]`);
+      if (err) err.textContent = msg;
+      const input = field(name);
+      if (input) { input.setAttribute('aria-invalid', 'true'); first ??= input; }
+    }
+    if (errors.form) status.textContent = errors.form;
+    first?.focus();
+  }
+
+  // Client-Prüfung mit den gleichen Meldungen wie der Server
+  function clientErrors(): Record<string, string> {
+    const e: Record<string, string> = {};
+    if (!field('datum')?.value) e.datum = 'Bitte ein Wunschdatum angeben.';
+    if (!/^\d{5}$/.test(field('plz')?.value ?? '')) e.plz = 'Bitte eine fünfstellige PLZ angeben.';
+    if ((field('name')?.value.trim().length ?? 0) < 2) e.name = 'Bitte deinen Namen angeben.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(field('email')?.value.trim() ?? '')) e.email = 'Bitte eine gültige E-Mail-Adresse angeben.';
+    if (!(field('datenschutz') as HTMLInputElement).checked) e.datenschutz = 'Bitte die Datenschutzerklärung bestätigen.';
+    return e;
+  }
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    status.textContent = '';
+    const local = clientErrors();
+    if (Object.keys(local).length) { showErrors(local); return; }
+
+    submit.disabled = true;
+    submit.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { accept: 'application/json' } });
+      const body = (await res.json().catch(() => null)) as { ok: boolean; errors?: Record<string, string> } | null;
+      if (res.ok && body?.ok) {
+        form.hidden = true;
+        done.hidden = false;
+        done.focus();
+        return;
+      }
+      showErrors(body?.errors ?? { form: 'Das hat nicht geklappt. Bitte versuch es noch einmal.' });
+    } catch {
+      status.textContent = '';
+      const a = document.createElement('a');
+      a.href = whatsappUrl();
+      a.textContent = 'per WhatsApp';
+      status.append('Keine Verbindung zum Server. Bitte versuch es später noch einmal oder schreib mir ', a, '.');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = 'Unverbindlich anfragen';
+    }
+  });
+</script>
+
+<style>
+  .wrap { display: flex; flex-wrap: wrap; gap: 48px; }
+  .intro { flex: 1 1 320px; min-width: 0; }
+  .intro a { font-weight: 700; }
+  .card {
+    flex: 2 1 520px; min-width: 0;
+    padding: 32px; border-radius: var(--radius); background: var(--card-bg); color: var(--card-ink); border: var(--card-border);
+  }
+  :global([data-theme="a"]) .card { background: #fff; box-shadow: 8px 8px 0 var(--ink); }
+  @media (max-width: 480px) { .card { padding: 20px; } }
+  .form { display: flex; flex-direction: column; gap: 16px; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 15px; }
+  input, select, textarea {
+    font: inherit; font-weight: 400; color: var(--card-ink); background: transparent;
+    min-height: 48px; padding: 10px 14px; border-radius: 12px; border: 2px solid var(--line);
+  }
+  :global([data-theme="b"]) input, :global([data-theme="b"]) select, :global([data-theme="b"]) textarea { background: #141118; border-color: #4A4453; color-scheme: dark; }
+  :global([data-theme="b"]) option { background: #141118; color: #fff; }
+  input:focus, select:focus, textarea:focus { outline: 3px solid var(--focus); outline-offset: 1px; }
+  [aria-invalid="true"] { border-color: #C2412F; }
+  :global([data-theme="b"]) [aria-invalid="true"] { border-color: #FF3DA5; }
+  .err { font-weight: 600; font-size: 14px; color: #B3261E; min-height: 0; }
+  :global([data-theme="b"]) .err { color: #FF8AC6; }
+  .err:empty { display: none; }
+  .check { flex-direction: row; align-items: center; gap: 10px; font-weight: 400; }
+  .check input { min-height: 0; width: 22px; height: 22px; accent-color: var(--accent); }
+  .estimate { display: block; padding: 14px 16px; border-radius: 14px; background: var(--highlight); color: var(--on-accent); font-size: 15px; }
+  :global([data-theme="b"]) .estimate { background: var(--accent-2); color: #fff; }
+  .estimate:empty { display: none; }
+  .estimate :global(strong) { font-size: 18px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form .btn { align-self: flex-start; }
+  .form .btn:disabled { opacity: .6; cursor: progress; transform: none; }
+  .status { margin: 0; font-weight: 600; }
+  .status :global(a) { font-weight: 700; }
+  .done h3 { font-size: 32px; margin-bottom: 12px; }
+  .done p { margin: 0 0 12px; }
+  .done a { font-weight: 700; }
+  .done:focus { outline: none; }
+</style>

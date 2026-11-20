@@ -1,0 +1,33 @@
+---
+import T from './T.astro';
+import { faq } from '../data/site';
+---
+<section id="faq" class="section faq">
+  <div class="container narrow">
+    <h2 class="section-title"><T k="faqTitle" /></h2>
+    {faq.map((q) => (
+      <details>
+        <summary>{q.q}</summary>
+        <p>{q.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .narrow { max-width: 900px; }
+  .section-title { margin-bottom: 24px; }
+  details { border-bottom: 2px solid var(--line); }
+  :global([data-theme="b"]) details { border-bottom-width: 1px; }
+  summary {
+    cursor: pointer; list-style: none; padding: 18px 40px 18px 0; position: relative;
+    font-weight: 700; font-size: 19px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    font-size: 28px; font-weight: 400; line-height: 1;
+  }
+  details[open] summary::after { content: "–"; }
+  p { margin: 0 0 18px; color: var(--ink-soft); }
+</style>

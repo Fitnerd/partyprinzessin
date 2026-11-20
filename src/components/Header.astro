@@ -1,0 +1,62 @@
+---
+import Logo from './Logo.astro';
+const nav = [
+  { href: '#pakete', label: 'Pakete' },
+  { href: '#figuren', label: 'Figuren' },
+  { href: '#ueber-mich', label: 'Über mich' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+<div class="winter">
+  Neu: Nikolaus- &amp; Winterbesuche im Dezember – <a href="#anfrage">Termin anfragen</a>
+</div>
+
+<header class="container header">
+  <Logo />
+  <nav aria-label="Hauptnavigation" class="desktop">
+    {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+    <a href="#anfrage" class="btn btn-primary">Termin prüfen</a>
+  </nav>
+  <details class="mobile">
+    <summary aria-label="Menü öffnen">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </summary>
+    <nav aria-label="Mobile Navigation">
+      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      <a href="#anfrage">Termin prüfen</a>
+    </nav>
+  </details>
+</header>
+
+<style>
+  .winter {
+    background: var(--accent-2); color: var(--on-accent-2);
+    text-align: center; padding: 10px 16px; font-size: 14px; font-weight: 500;
+  }
+  :global([data-theme="a"]) .winter { color: var(--highlight); }
+  :global([data-theme="b"]) .winter { background: var(--accent); color: var(--on-accent); }
+  .winter a { color: inherit; font-weight: 700; }
+
+  .header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; position: relative; }
+  .desktop { display: flex; align-items: center; gap: 28px; font-weight: 500; }
+  .desktop a:not(.btn) { text-decoration: none; }
+  .desktop .btn { min-height: 44px; padding: 10px 22px; font-size: 16px; }
+  .mobile { display: none; }
+
+  @media (max-width: 860px) {
+    .desktop { display: none; }
+    .mobile { display: block; }
+    summary {
+      list-style: none; width: 44px; height: 44px; border-radius: var(--radius-btn);
+      border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .mobile nav {
+      position: absolute; right: 16px; top: 72px; z-index: 20; min-width: 220px;
+      display: flex; flex-direction: column; padding: 8px;
+      background: var(--card-bg); color: var(--card-ink); border: var(--card-border); border-radius: var(--radius-sm);
+      box-shadow: 0 12px 32px rgb(0 0 0 / .18);
+    }
+    .mobile nav a { padding: 12px 14px; text-decoration: none; font-weight: 600; border-radius: 10px; }
+  }
+</style>
