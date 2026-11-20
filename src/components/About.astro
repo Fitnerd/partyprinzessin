@@ -1,10 +1,10 @@
 ---
 import T from './T.astro';
-import Placeholder from './Placeholder.astro';
+import Foto from './Foto.astro';
 import { business } from '../data/site';
 ---
 <section id="ueber-mich" class="container section about">
-  <Placeholder class="media" label="Hochformat-Video, 30 Sek.: „Hi, ich bin …“ – Verwandlung ohne → mit Kostüm" />
+  <Foto name="ueber-mich" class="media" sizes="(max-width: 800px) 100vw, 440px" widths={[440, 880]} alt="Die Person hinter Kronenmoment, ohne Kostüm" label="Hochformat-Video, 30 Sek.: „Hi, ich bin …“ – Verwandlung ohne → mit Kostüm" />
   <div class="text">
     <h2 class="section-title"><T k="aboutTitle" /></h2>
     <p>[Dein Name], aus {business.city}. [Deine Erfahrung mit Kindern in einem Satz.] Ich spiele jede Figur selbst – ihr wisst also genau, wer zu euch kommt.</p>

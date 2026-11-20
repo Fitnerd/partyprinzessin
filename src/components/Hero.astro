@@ -1,6 +1,6 @@
 ---
 import T from './T.astro';
-import Placeholder from './Placeholder.astro';
+import Foto from './Foto.astro';
 import { business, minPrice, whatsappUrl } from '../data/site';
 ---
 <section class="container hero">
@@ -23,7 +23,7 @@ import { business, minPrice, whatsappUrl } from '../data/site';
   <!-- Theme A: Bilderbuch-Sticker -->
   <div class="visual-a only-a" aria-hidden="false">
     <div class="blob" aria-hidden="true"></div>
-    <Placeholder class="arch" label="Foto: du als Schneekönigin, freigestellt, Tageslicht" />
+    <Foto name="hero-a" class="arch" eager position="center top" sizes="(max-width: 900px) 100vw, 45vw" alt="Kronenmoment als Schneekönigin" label="Foto: du als Schneekönigin, freigestellt, Tageslicht" />
     <span class="sticker s1" aria-hidden="true">Krone inklusive</span>
     <span class="sticker s2" aria-hidden="true">ab {minPrice} € · 60 Min.</span>
     <svg class="star" aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="var(--highlight)" stroke="var(--ink)" stroke-width="1.5"><path d="M12 2l2.6 6.6L21 9.5l-5 4.6 1.4 6.9L12 17.6 6.6 21l1.4-6.9-5-4.6 6.4-.9z"></path></svg>
@@ -31,8 +31,8 @@ import { business, minPrice, whatsappUrl } from '../data/site';
 
   <!-- Theme B: Bento -->
   <div class="visual-b only-b">
-    <Placeholder class="tile big" label="Foto: du, harter Blitz, pinker Hintergrund" />
-    <Placeholder class="tile lime" label="Reel-Still: Tanz" />
+    <Foto name="hero-b" class="tile big" eager position="center top" sizes="(max-width: 900px) 50vw, 25vw" widths={[300, 600, 900]} alt="Kronenmoment im Prinzessinnen-Kostüm" label="Foto: du, harter Blitz, pinker Hintergrund" />
+    <Foto name="hero-b-klein" class="tile lime" sizes="(max-width: 900px) 50vw, 25vw" widths={[300, 600]} alt="Tanz beim Kindergeburtstag" label="Reel-Still: Tanz" />
     <div class="tile violet">
       <span class="price">{minPrice} €</span>
       <span>ab · 60 Min.</span>

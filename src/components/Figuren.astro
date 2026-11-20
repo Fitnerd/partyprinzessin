@@ -1,25 +1,37 @@
 ---
 import T from './T.astro';
+import { Image } from 'astro:assets';
 import { figuren } from '../data/site';
+import { getFoto } from '../lib/fotos';
 ---
 <section id="figuren" class="band section">
   <div class="container">
     <h2 class="section-title"><T k="figurenTitle" /></h2>
     <p class="section-lead only-a">Klassische Märchen, neu erzählt – und eigene Heldinnen.</p>
     <ul class="grid">
-      {figuren.map((f) => (
-        <li>
+      {figuren.map((f) => {
+        const foto = getFoto(f.slug);
+        return (
+        <li class:list={{ 'has-photo': foto }}>
           <a class="fig" href="#anfrage" data-figur={f.slug} aria-label={`${f.name} anfragen`}>
-            <span class="img" role="img" aria-label={`Platzhalter: Foto ${f.name}`}>
-              <span class="only-a">Foto {f.name}</span>
-              <span class="only-b tag">{f.tag}</span>
-            </span>
+            {foto ? (
+              <span class="img">
+                <Image src={foto} alt="" widths={[300, 600].filter((w) => w <= foto.width).concat(foto.width < 600 ? [foto.width] : [])} sizes="(max-width: 700px) 50vw, 260px" format="webp" quality={80} />
+                <span class="only-b tag">{f.tag}</span>
+              </span>
+            ) : (
+              <span class="img" role="img" aria-label={`Platzhalter: Foto ${f.name}`}>
+                <span class="only-a">Foto {f.name}</span>
+                <span class="only-b tag">{f.tag}</span>
+              </span>
+            )}
             <strong class="name">{f.name}</strong>
             <span class="line only-a">{f.line}</span>
             <span class="cta" aria-hidden="true">Anfragen →</span>
           </a>
         </li>
-      ))}
+        );
+      })}
     </ul>
     <p class="more">Weitere Figuren auf Anfrage.</p>
   </div>
@@ -38,6 +50,8 @@ import { figuren } from '../data/site';
   li:nth-child(3n+1) .img { background: var(--fig-1); color: var(--fig-ink-1); }
   li:nth-child(3n+2) .img { background: var(--fig-2); color: var(--fig-ink-2); }
   li:nth-child(3n+3) .img { background: var(--fig-3); color: var(--fig-ink-3); }
+  .img { position: relative; overflow: hidden; }
+  .img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .name { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
   .line { font-size: 15px; flex: 1; }
   .cta { font-weight: 700; font-size: 15px; color: var(--link-hover); }
@@ -55,5 +69,9 @@ import { figuren } from '../data/site';
   :global([data-theme="b"]) li:nth-child(5n+4) :is(.name, .cta),
   :global([data-theme="b"]) li:nth-child(5n+5) :is(.name, .cta) { color: #fff; }
   :global([data-theme="b"]) li:nth-child(5n+5) .fig { outline: 1px solid #4A4453; outline-offset: -1px; border-radius: 24px; }
+  /* B mit Foto: Verlauf unten, Schrift weiß, Tag als Pille */
+  :global([data-theme="b"]) .has-photo .img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,17,24,.85), rgba(20,17,24,0) 55%); }
+  :global([data-theme="b"]) .has-photo :is(.name, .cta) { color: #fff; z-index: 1; }
+  :global([data-theme="b"]) .has-photo .tag { position: relative; z-index: 1; background: #141118; color: #fff; padding: 4px 10px; border-radius: 999px; }
   .tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 </style>
